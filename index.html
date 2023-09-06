@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bypasser</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1 class="center">Bypasser</h1>
+    <form id="myform" class="center">
+        <input type="url" id="url" required>
+        <small style="color: red;" id="error"></small>
+        <div class="btn-group">
+            <button type="reset">Reset</button>
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+
+    <div class="details center">
+        <div id="filename" class="pt"></div>
+        <div id="filesize" class="pt"></div>
+    </div>
+
+    <div id="videoContainer" class="pt" align="center">
+        <video id="videoPlayer" preload="metadata" controls style="max-width: 100%;height: 300px;"></video>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>

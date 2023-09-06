@@ -1,0 +1,22 @@
+#videoContainer {
+    display: none;
+}
+.center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#url {
+    margin-block: 10px;
+    width: 80%;
+}
+button {
+    margin-block: 10px;
+    padding: 5px;
+}
+
+.pt {
+    padding-top: 1rem;
+}
