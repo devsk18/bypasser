@@ -20,7 +20,7 @@ form.addEventListener("submit", function (event) {
     .then((data) => {
       if(error.innerText != '') error.innerText = '';
       res = JSON.parse(data.contents);
-      console.log(res.result[0].url, res.title, res.total_size);
+      //console.log(res.result[0].url, res.title, res.total_size);
       videoPlayer.src = res.result[0].url;
       filename.innerHTML = "File Name : " + res.title;
       filesize.innerHTML =
