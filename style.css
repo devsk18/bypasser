@@ -1,4 +1,6 @@
-#videoContainer {
+#videoContainer, 
+#spinner, 
+#details {
     display: none;
 }
 .center {
@@ -17,6 +19,3 @@ button {
     padding: 5px;
 }
 
-.pt {
-    padding-top: 1rem;
-}
