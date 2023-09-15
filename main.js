@@ -4,6 +4,11 @@ form.addEventListener("submit", function (event) {
   event.preventDefault();
 
   const url = document.getElementById("url").value;
+  const converted_url = 'http://' + url.slice(8);
+
+  let shortUrl = url.slice(26)
+  setThumbnail(shortUrl)
+
 
   const videoPlayer = document.getElementById("videoPlayer");
   const videoContainer = document.getElementById("videoContainer");
@@ -18,16 +23,16 @@ form.addEventListener("submit", function (event) {
   details.style.display = "none";
   videoContainer.style.display = "none";
 
-  const full_url = "http://wibu-api.eu.org/api/bypass/terabox?url=" + url;
-
-  fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(full_url)}`)
+  const wibu_api_url = "http://wibu-api.eu.org/api/bypass/terabox?url=" + converted_url;
+  fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(wibu_api_url)}`)
     .then((response) => {
       if (response.ok) return response.json();
     })
-    .then((data) => {
+    .then((res) => {
       if(error.innerText != '') error.innerText = '';
-      res = JSON.parse(data.contents);
-      console.log(res,"\n", res.result[0].url,"\n",res.title, res.total_size);
+      //res = JSON.parse(res);
+      console.log(res);
+      //console.log(res,"\n", res.result[0].url,"\n",res.title, res.total_size);
       videoPlayer.src = res.result[0].url;
       link.href = res.result[0].url;
       setTimeout(()=>{
@@ -39,7 +44,22 @@ form.addEventListener("submit", function (event) {
       },1000)
     })
     .catch((err) => {
-      error.innerText = "Error Occured";
       error.innerText = err;
+      spinner.style.display = "none";
     });
 });
+
+
+function setThumbnail(shortUrl) {
+  const videoPlayer = document.getElementById("videoPlayer");
+  const direct_url = "http://www.1024tera.com/share/list?app_id=250528&web=1&channel=dubox&clienttype=0&jsToken=BEDADEDECC8CCFDC9E2094332E1B619445821CB79F417C3F059003E651D5AA23B6F3C0785FF72D23F63E43167CFDBC474CDEEBF438E14BCD12FD1601CB6D404E&dp-logid=51575800518531130011&page=1&num=20&by=name&order=asc&site_referer=&scene=purchased_list&shorturl="+shortUrl+"&root=1";
+  fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(direct_url)}`,)
+    .then((response) => {
+      if (response.ok) return response.json();
+    })
+    .then((res) => {
+      videoPlayer.poster = res.list[0].thumbs.url2
+    })
+}
+
+
