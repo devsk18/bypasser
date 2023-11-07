@@ -4,7 +4,7 @@ form.addEventListener("submit", function (event) {
   event.preventDefault();
 
   const url = document.getElementById("url").value;
-  const converted_url = 'http://' + url.slice(8);
+  //const converted_url = 'https://' + url.slice(8);
 
   let shortUrl = url.slice(26)
   setThumbnail(shortUrl)
@@ -23,7 +23,8 @@ form.addEventListener("submit", function (event) {
   details.style.display = "none";
   videoContainer.style.display = "none";
 
-  const wibu_api_url = "http://wibu-api.eu.org/api/bypass/terabox?url=" + converted_url;
+  const wibu_api_url = "https://wibu-api.eu.org/api/bypass/terabox?url=" + url + "&x_wibu_key=WIBUAPI-zYODEyNzQ5NjI3RGV2c1lCb3RzU3VwcG9ydA==x";
+  console.log(wibu_api_url);
   fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(wibu_api_url)}`)
     .then((response) => {
       if (response.ok) return response.json();
@@ -31,7 +32,6 @@ form.addEventListener("submit", function (event) {
     .then((res) => {
       if(error.innerText != '') error.innerText = '';
       //res = JSON.parse(res);
-      console.log(res);
       //console.log(res,"\n", res.result[0].url,"\n",res.title, res.total_size);
       videoPlayer.src = res.result[0].url;
       link.href = res.result[0].url;
@@ -58,7 +58,7 @@ function setThumbnail(shortUrl) {
       if (response.ok) return response.json();
     })
     .then((res) => {
-      videoPlayer.poster = res.list[0].thumbs.url2
+      videoPlayer.poster = res.list[0].thumbs.url3
     })
 }
 
