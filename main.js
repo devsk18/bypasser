@@ -58,6 +58,7 @@ function setThumbnail(shortUrl) {
       if (response.ok) return response.json();
     })
     .then((res) => {
+      console.log(res);
       videoPlayer.poster = res.list[0].thumbs.url3
     })
 }

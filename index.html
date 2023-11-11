@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,21 +8,9 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
 </head>
+
 <body>
     <h1 class="center">Bypasser</h1>
-    <div class="center">
-        <ul class="d-flex justify-content-center m-0 p-0" style="list-style: none;">
-            <li>
-                <a href="gif.html">GIF</a>
-            </li>
-            <li>
-                <div class="p-2"></div>
-            </li>
-            <li>
-                <a href="image.html">Image</a>
-            </li>
-        </ul>
-    </div>
     <form id="myform" class="center">
         <input class="form-control" type="url" id="url" required>
         <small class="text-center text-danger" id="error"></small>
@@ -50,6 +39,27 @@
         <video id="videoPlayer" controls style="max-width: 100%;height: 300px;"></video>
     </div>
 
+
+    <a onclick="send()">click</a>
+
+    <script>
+        function send() {
+            var newURL = "https://d.1024tera.com/file/754f427c42d7ef5875244ce61bcd0b60?fid=4399668256555-250528-42659741773576&dstime=1699679729&rt=sh&sign=FDtAER-DCb740ccc5511e5e8fedcff06b081203-qbGnFSY2ytRwClonjR%2BomvlxquQ%3D&expires=8h&chkv=0&chkbd=0&chkpc=&dp-logid=377829775365464349&dp-callid=0&r=701341401&sh=1";
+            // Open the new URL in a new tab
+            const newTab = window.open(newURL, '_blank');
+
+            // Check if the new tab was successfully opened by the script
+            if (newTab) {
+                // Replace the content of the new tab
+                newTab.location.replace(currentURL);
+            } else {
+                // If the new tab wasn't opened, provide a message or handle the scenario accordingly
+                console.log("The popup was blocked or not opened by the script.");
+            }
+        }
+    </script>
+
     <script src="main.js"></script>
 </body>
+
 </html>
