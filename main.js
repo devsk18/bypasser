@@ -6,8 +6,9 @@ form.addEventListener("submit", function (event) {
   const url = document.getElementById("url").value;
   //const converted_url = 'https://' + url.slice(8);
 
-  let shortUrl = url.slice(26)
-  setThumbnail(shortUrl)
+  let shortUrl = extractShortCode(url);
+  console.log("ShortCode : " + shortUrl);
+  setThumbnail(shortUrl);
 
 
   const videoPlayer = document.getElementById("videoPlayer");
@@ -23,13 +24,15 @@ form.addEventListener("submit", function (event) {
   details.style.display = "none";
   videoContainer.style.display = "none";
 
-  const wibu_api_url = "https://wibu-api.eu.org/api/bypass/terabox?url=" + url + "&x_wibu_key=WIBUAPI-zYODEyNzQ5NjI3RGV2c1lCb3RzU3VwcG9ydA==x";
+  //const wibu_api_url = "https://wibu-api.eu.org/api/bypass/terabox?url=" + url + "&x_wibu_key=WIBUAPI-zYODEyNzQ5NjI3RGV2c1lCb3RzU3VwcG9ydA==x";
+  const wibu_api_url = "https://wibu-api.eu.org/api/bypass/terabox?url=" + url + "&x_wibu_key=WIBUAPI-_zgq1SlRpBHuON4LD5SFJSgUFSeOOurDdp6cpouzjkFWCe8onRa0JNxPcheZ3dHYjwTzyTY--YbutWgNLGsQKdlsQPbG3AiI5R1B";
   console.log(wibu_api_url);
   fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(wibu_api_url)}`)
     .then((response) => {
       if (response.ok) return response.json();
     })
     .then((res) => {
+      console.log("Vid Res : " + res);
       if(error.innerText != '') error.innerText = '';
       //res = JSON.parse(res);
       //console.log(res,"\n", res.result[0].url,"\n",res.title, res.total_size);
@@ -49,6 +52,17 @@ form.addEventListener("submit", function (event) {
     });
 });
 
+function extractShortCode(url) {
+  try {
+    const urlObj = new URL(url);
+    const match = urlObj.pathname.match(/\/1([A-Za-z0-9_-]+)/);
+    return match ? match[1] : null;
+  } catch (e) {
+    console.error('Invalid URL:', e);
+    return null;
+  }
+}
+
 
 function setThumbnail(shortUrl) {
   const videoPlayer = document.getElementById("videoPlayer");
@@ -58,8 +72,11 @@ function setThumbnail(shortUrl) {
       if (response.ok) return response.json();
     })
     .then((res) => {
-      console.log(res);
+      console.log("Thumb res : " + res);
       videoPlayer.poster = res.list[0].thumbs.url3
+    })
+    .catch((err)=>{
+      console.error(err);
     })
 }
 
